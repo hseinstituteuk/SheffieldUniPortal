@@ -1,11 +1,11 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>University of Sheffield - Official Degree Verification Portal</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -14,483 +14,162 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Arial', sans-serif;
             line-height: 1.6;
             color: #333;
             overflow-x: hidden;
         }
 
-        /* Header Styles */
-        .header {
-            background: linear-gradient(135deg, #1a472a 0%, #2d6a3e 100%);
-            color: white;
-            padding: 1rem 0;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        .gradient-bg {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #60a5fa 100%);
         }
 
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 2rem;
-        }
-
-        .logo-section {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .logo {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            border: 3px solid #fff;
-        }
-
-        .uni-title {
-            font-size: 1.5rem;
-            font-weight: bold;
-        }
-
-        .nav-menu {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
-        }
-
-        .nav-item {
-            cursor: pointer;
-            padding: 0.5rem 1rem;
-            border-radius: 5px;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        .nav-item:hover {
-            background: rgba(255,255,255,0.1);
-            transform: translateY(-2px);
-        }
-
-        .nav-item.active {
-            background: rgba(255,255,255,0.2);
-        }
-
-        /* Main Content */
-        .main-content {
-            margin-top: 100px;
-            min-height: calc(100vh - 100px);
-        }
-
-        .section {
-            display: none;
-            padding: 2rem 0;
-        }
-
-        .section.active {
-            display: block;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        /* Hero Section */
-        .hero {
-            background: linear-gradient(rgba(26, 71, 42, 0.8), rgba(45, 106, 62, 0.8)),
-                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%23f0f0f0" width="1200" height="600"/><circle fill="%231a472a" cx="300" cy="150" r="50"/><circle fill="%232d6a3e" cx="900" cy="300" r="80"/><rect fill="%23ffffff" x="100" y="400" width="200" height="100" rx="10"/></svg>');
-            background-size: cover;
-            background-position: center;
-            min-height: 80vh;
-            display: flex;
-            align-items: center;
-            text-align: center;
-            color: white;
-            position: relative;
-        }
-
-        .hero-content {
-            animation: fadeInUp 1s ease-out;
-        }
-
-        .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-        }
-
-        .hero p {
-            font-size: 1.3rem;
-            margin-bottom: 2rem;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .cta-button {
-            background: #ff6b35;
-            color: white;
-            padding: 1rem 2rem;
-            border: none;
-            border-radius: 50px;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-block;
-        }
-
-        .cta-button:hover {
-            background: #e55a30;
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(255, 107, 53, 0.3);
-        }
-
-        /* University Info Cards */
-        .info-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin: 4rem 0;
-        }
-
-        .info-card {
-            background: white;
-            padding: 2rem;
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
-            text-align: center;
-            border: 1px solid #e0e0e0;
         }
 
-        .info-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
         }
 
-        .card-icon {
-            font-size: 3rem;
-            color: #1a472a;
-            margin-bottom: 1rem;
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
         }
 
-        .card-title {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: #1a472a;
+        .animate-slide-in {
+            animation: slideIn 1s ease-out;
         }
 
-        /* Verification Portal */
-        .verification-portal {
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-            padding: 4rem 0;
-            text-align: center;
+        @keyframes slideIn {
+            from { transform: translateX(-100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
         }
 
-        .portal-container {
-            background: white;
-            padding: 3rem;
+        .animate-fade-in {
+            animation: fadeIn 1.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .pulse-animation {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .verification-card {
+            background: linear-gradient(145deg, #ffffff, #f0f9ff);
             border-radius: 20px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-            max-width: 600px;
-            margin: 0 auto;
-            border: 2px solid #1a472a;
-        }
-
-        .portal-title {
-            font-size: 2.5rem;
-            color: #1a472a;
-            margin-bottom: 2rem;
-        }
-
-        .verification-form {
-            margin-bottom: 2rem;
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-            text-align: left;
-        }
-
-        .form-label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: bold;
-            color: #1a472a;
-        }
-
-        .form-input {
-            width: 100%;
-            padding: 1rem;
-            border: 2px solid #ddd;
-            border-radius: 10px;
-            font-size: 1.1rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            transform: translateY(0);
             transition: all 0.3s ease;
         }
 
-        .form-input:focus {
-            outline: none;
-            border-color: #1a472a;
-            box-shadow: 0 0 0 3px rgba(26, 71, 42, 0.1);
+        .verification-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
         }
 
-        .verify-button {
-            background: linear-gradient(135deg, #1a472a 0%, #2d6a3e 100%);
-            color: white;
-            padding: 1rem 2rem;
+        .nav-link {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 50%;
+            background: #fbbf24;
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, #3b82f6, #1d4ed8);
             border: none;
-            border-radius: 10px;
-            font-size: 1.1rem;
+            padding: 12px 30px;
+            border-radius: 25px;
+            color: white;
+            font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
-            width: 100%;
-        }
-
-        .verify-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(26, 71, 42, 0.3);
-        }
-
-        /* Results Display */
-        .verification-result {
-            display: none;
-            padding: 2rem;
-            border-radius: 15px;
-            margin-top: 2rem;
-            text-align: left;
-            animation: slideInUp 0.5s ease-out;
-        }
-
-        .result-success {
-            background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
-            border: 2px solid #28a745;
-        }
-
-        .result-error {
-            background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
-            border: 2px solid #dc3545;
-        }
-
-        .result-title {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .student-details {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-
-        .detail-item {
-            background: rgba(255, 255, 255, 0.7);
-            padding: 1rem;
-            border-radius: 8px;
-            border-left: 4px solid #1a472a;
-        }
-
-        .detail-label {
-            font-weight: bold;
-            color: #1a472a;
-        }
-
-        /* University Gallery */
-        .gallery {
-            padding: 4rem 0;
-            background: #f8f9fa;
-        }
-
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .gallery-item {
             position: relative;
-            border-radius: 15px;
             overflow: hidden;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
         }
 
-        .gallery-item:hover {
-            transform: scale(1.05);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
-        }
-
-        .gallery-image {
-            width: 100%;
-            height: 250px;
-            object-fit: cover;
-        }
-
-        .gallery-overlay {
+        .btn-primary::before {
+            content: '';
             position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(transparent, rgba(0,0,0,0.8));
-            color: white;
-            padding: 2rem 1rem 1rem;
-            transform: translateY(100%);
-            transition: all 0.3s ease;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: all 0.5s ease;
         }
 
-        .gallery-item:hover .gallery-overlay {
-            transform: translateY(0);
+        .btn-primary:hover::before {
+            left: 100%;
         }
 
-        /* Courses Section */
-        .courses {
-            padding: 4rem 0;
-        }
-
-        .courses-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.4);
         }
 
         .course-card {
             background: white;
             border-radius: 15px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            overflow: hidden;
+            padding: 25px;
+            margin: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
-            border: 1px solid #e0e0e0;
+            border-left: 5px solid #3b82f6;
         }
 
         .course-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
         }
 
-        .course-image {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
-
-        .course-content {
-            padding: 1.5rem;
-        }
-
-        .course-title {
-            font-size: 1.3rem;
-            color: #1a472a;
-            margin-bottom: 1rem;
-        }
-
-        .course-description {
-            color: #666;
-            margin-bottom: 1rem;
-        }
-
-        .course-meta {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 1rem;
-            padding-top: 1rem;
-            border-top: 1px solid #e0e0e0;
-        }
-
-        /* Footer */
-        .footer {
-            background: #1a472a;
+        .verification-result {
+            background: linear-gradient(135deg, #10b981, #059669);
             color: white;
-            padding: 3rem 0 1rem;
-            text-align: center;
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 20px;
+            animation: slideIn 0.5s ease-out;
         }
 
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .footer-section h3 {
-            margin-bottom: 1rem;
-            color: #fff;
-        }
-
-        .footer-links {
-            list-style: none;
-        }
-
-        .footer-links li {
-            margin-bottom: 0.5rem;
-        }
-
-        .footer-links a {
-            color: #ccc;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        .footer-links a:hover {
-            color: #fff;
-        }
-
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes slideInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .fade-in {
-            animation: fadeInUp 0.6s ease-out;
-        }
-
-        /* Loading Animation */
-        .loading {
+        .hidden {
             display: none;
-            text-align: center;
-            padding: 2rem;
         }
 
-        .spinner {
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid #1a472a;
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #3498db;
             border-radius: 50%;
-            width: 50px;
-            height: 50px;
             animation: spin 1s linear infinite;
-            margin: 0 auto 1rem;
         }
 
         @keyframes spin {
@@ -498,718 +177,747 @@
             100% { transform: rotate(360deg); }
         }
 
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .nav-menu {
-                display: none;
-            }
-
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-
-            .hero p {
-                font-size: 1.1rem;
-            }
-
-            .info-cards {
-                grid-template-columns: 1fr;
-            }
-
-            .portal-container {
-                margin: 0 1rem;
-                padding: 2rem;
-            }
-        }
-
-        /* Verification Badges */
-        .verification-badges {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin: 3rem 0;
-            flex-wrap: wrap;
-        }
-
-        .badge {
+        .stat-card {
             background: white;
-            padding: 1rem;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            padding: 30px;
+            border-radius: 15px;
             text-align: center;
-            min-width: 150px;
-            border: 2px solid #1a472a;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
         }
 
-        .badge-icon {
-            font-size: 2rem;
-            color: #1a472a;
-            margin-bottom: 0.5rem;
+        .stat-card:hover {
+            transform: translateY(-5px);
         }
 
-        .badge-text {
-            font-size: 0.9rem;
-            color: #333;
-            font-weight: bold;
+        .section-title {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 40px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 3px;
+            background: #fbbf24;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 15px;
+            }
+            
+            .course-card {
+                margin: 10px 0;
+            }
+            
+            .verification-card {
+                margin: 10px;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Header -->
-    <header class="header">
-        <div class="nav-container">
-            <div class="logo-section">
-                <img src="logo.png" class="logo">
-                <div class="uni-title">University of Sheffield</div>
+    <!-- Navigation -->
+    <nav class="gradient-bg text-white py-4 sticky top-0 z-50">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-4">
+                    <img src="logo.png" class="rounded-full">
+                    <div>
+                        <h1 class="text-2xl font-bold">University of Sheffield</h1>
+                        <p class="text-sm opacity-90">Official Degree Verification Portal</p>
+                    </div>
+                </div>
+                <div class="hidden md:flex space-x-6">
+                    <a href="#home" class="nav-link hover:text-yellow-300 transition-colors">Home</a>
+                    <a href="#verification" class="nav-link hover:text-yellow-300 transition-colors">Verification</a>
+                    <a href="#courses" class="nav-link hover:text-yellow-300 transition-colors">Courses</a>
+                    <a href="#about" class="nav-link hover:text-yellow-300 transition-colors">About</a>
+                    <a href="#contact" class="nav-link hover:text-yellow-300 transition-colors">Contact</a>
+                </div>
+                <button class="md:hidden text-white" onclick="toggleMobileMenu()">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
             </div>
-            <nav>
-                <ul class="nav-menu">
-                    <li class="nav-item active" onclick="showSection('home')">Home</li>
-                    <li class="nav-item" onclick="showSection('verification')">Verification</li>
-                    <li class="nav-item" onclick="showSection('courses')">Courses</li>
-                    <li class="nav-item" onclick="showSection('about')">About</li>
-                    <li class="nav-item" onclick="showSection('gallery')">Gallery</li>
-                    <li class="nav-item" onclick="showSection('contact')">Contact</li>
-                </ul>
-            </nav>
+            <div id="mobile-menu" class="hidden md:hidden mt-4 space-y-2">
+                <a href="#home" class="block py-2 hover:text-yellow-300">Home</a>
+                <a href="#verification" class="block py-2 hover:text-yellow-300">Verification</a>
+                <a href="#courses" class="block py-2 hover:text-yellow-300">Courses</a>
+                <a href="#about" class="block py-2 hover:text-yellow-300">About</a>
+                <a href="#contact" class="block py-2 hover:text-yellow-300">Contact</a>
+            </div>
         </div>
-    </header>
+    </nav>
 
-    <!-- Main Content -->
-    <main class="main-content">
-        <!-- Home Section -->
-        <section id="home" class="section active">
-            <div class="hero">
-                <div class="container">
-                    <div class="hero-content">
-                        <h1>University of Sheffield</h1>
-                        <p>Official Degree Verification Portal - Authenticate your academic credentials with confidence through our secure and internationally recognized verification system.</p>
-                        <button class="cta-button" onclick="showSection('verification')">Verify Degree <i class="fas fa-arrow-right"></i></button>
+    <!-- Hero Section -->
+    <section id="home" class="gradient-bg text-white py-20">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col lg:flex-row items-center">
+                <div class="lg:w-1/2 animate-slide-in">
+                    <h2 class="text-5xl font-bold mb-6">Welcome to University of Sheffield</h2>
+                    <p class="text-xl mb-8 opacity-90">Founded in 1905, we are a world-renowned research university committed to excellence in education and innovation. Verify your degree credentials through our official portal.</p>
+                    <div class="space-x-4">
+                        <button class="btn-primary" onclick="scrollToSection('verification')">
+                            <i class="fas fa-certificate mr-2"></i>Verify Degree
+                        </button>
+                        <button class="btn-primary bg-gradient-to-r from-yellow-500 to-orange-500" onclick="scrollToSection('courses')">
+                            <i class="fas fa-graduation-cap mr-2"></i>View Courses
+                        </button>
                     </div>
+                </div>
+                <div class="lg:w-1/2 mt-10 lg:mt-0">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/1a346b81-4b9e-4cd0-94e6-4038a1558f55.png" alt="University of Sheffield main campus building with gothic architecture, students walking on pathways, and green lawns in foreground" class="rounded-lg shadow-2xl animate-float">
                 </div>
             </div>
+        </div>
+    </section>
 
-            <div class="container">
-                <!-- Verification Badges -->
-                <div class="verification-badges">
-                    <div class="badge">
-                        <div class="badge-icon"><i class="fas fa-shield-alt"></i></div>
-                        <div class="badge-text">QAA Verified</div>
-                    </div>
-                    <div class="badge">
-                        <div class="badge-icon"><i class="fas fa-certificate"></i></div>
-                        <div class="badge-text">HESA Recognized</div>
-                    </div>
-                    <div class="badge">
-                        <div class="badge-icon"><i class="fas fa-globe"></i></div>
-                        <div class="badge-text">Internationally Accredited</div>
-                    </div>
-                    <div class="badge">
-                        <div class="badge-icon"><i class="fas fa-university"></i></div>
-                        <div class="badge-text">Russell Group</div>
-                    </div>
+    <!-- Statistics Section -->
+    <section class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div class="stat-card animate-fade-in">
+                    <i class="fas fa-users text-4xl text-blue-600 mb-4"></i>
+                    <h3 class="text-3xl font-bold text-gray-800">29,000+</h3>
+                    <p class="text-gray-600">Students</p>
                 </div>
-
-                <!-- Info Cards -->
-                <div class="info-cards">
-                    <div class="info-card fade-in">
-                        <div class="card-icon"><i class="fas fa-graduation-cap"></i></div>
-                        <h3 class="card-title">Academic Excellence</h3>
-                        <p>Established in 1905, the University of Sheffield is renowned for world-class research and teaching across diverse disciplines.</p>
-                    </div>
-                    <div class="info-card fade-in">
-                        <div class="card-icon"><i class="fas fa-search"></i></div>
-                        <h3 class="card-title">Instant Verification</h3>
-                        <p>Our advanced verification system provides immediate authentication of degrees with comprehensive security features.</p>
-                    </div>
-                    <div class="info-card fade-in">
-                        <div class="card-icon"><i class="fas fa-shield-check"></i></div>
-                        <h3 class="card-title">Secure & Trusted</h3>
-                        <p>All verifications are protected by blockchain technology and recognized by international education bodies.</p>
-                    </div>
+                <div class="stat-card animate-fade-in">
+                    <i class="fas fa-globe text-4xl text-green-600 mb-4"></i>
+                    <h3 class="text-3xl font-bold text-gray-800">140+</h3>
+                    <p class="text-gray-600">Countries</p>
+                </div>
+                <div class="stat-card animate-fade-in">
+                    <i class="fas fa-award text-4xl text-yellow-600 mb-4"></i>
+                    <h3 class="text-3xl font-bold text-gray-800">6</h3>
+                    <p class="text-gray-600">Nobel Prizes</p>
+                </div>
+                <div class="stat-card animate-fade-in">
+                    <i class="fas fa-star text-4xl text-purple-600 mb-4"></i>
+                    <h3 class="text-3xl font-bold text-gray-800">Top 100</h3>
+                    <p class="text-gray-600">World Ranking</p>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- Verification Portal Section -->
-        <section id="verification" class="section">
-            <div class="verification-portal">
-                <div class="container">
-                    <div class="portal-container">
-                        <h2 class="portal-title"><i class="fas fa-certificate"></i> Degree Verification Portal</h2>
-                        <p style="margin-bottom: 2rem; color: #666;">Enter your certificate number to verify your University of Sheffield degree. All verifications are secure and instant.</p>
+    <!-- Verification Section -->
+    <section id="verification" class="py-20 gradient-bg">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center text-white mb-4 section-title">Degree Verification Portal</h2>
+            <p class="text-center text-white opacity-90 mb-12 text-lg">Enter certificate number to verify degree authenticity</p>
+            
+            <div class="max-w-2xl mx-auto">
+                <div class="verification-card p-8">
+                    <div class="text-center mb-8">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/308e2bce-d195-4374-bc08-7f43faa6bdc2.png" alt="Official verification seal with University of Sheffield crest and security hologram" class="mx-auto rounded-full mb-4 pulse-animation">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-2">Official Verification System</h3>
+                        <p class="text-gray-600">Certified by UK Education Councils</p>
+                    </div>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <label class="block text-gray-700 font-semibold mb-2">Certificate Number</label>
+                            <input type="text" id="certificateInput" placeholder="Enter certificate number (e.g., SHF2023001)" 
+                                   class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none transition-colors">
+                        </div>
                         
-                        <div class="verification-form">
-                            <div class="form-group">
-                                <label class="form-label" for="certNumber">Certificate Number</label>
-                                <input type="text" id="certNumber" class="form-input" placeholder="Enter your certificate number (e.g., UOSH2023001)" maxlength="20">
-                            </div>
-                            <button class="verify-button" onclick="verifyDegree()">
-                                <i class="fas fa-search"></i> Verify Degree
-                            </button>
-                        </div>
-
-                        <div class="loading" id="loadingSpinner">
-                            <div class="spinner"></div>
-                            <p>Verifying your certificate...</p>
-                        </div>
-
-                        <div class="verification-result" id="verificationResult">
-                            <!-- Results will be displayed here -->
-                        </div>
+                        <button onclick="verifyDegree()" class="btn-primary w-full py-3 text-lg">
+                            <i class="fas fa-search mr-2"></i>Verify Degree
+                        </button>
                     </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Courses Section -->
-        <section id="courses" class="section">
-            <div class="courses">
-                <div class="container">
-                    <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 1rem; color: #1a472a;">Our Courses</h2>
-                    <p style="text-align: center; font-size: 1.1rem; color: #666; margin-bottom: 3rem;">Explore our comprehensive range of undergraduate and postgraduate programs</p>
                     
-                    <div class="courses-grid">
-                        <div class="course-card">
-                            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/491e9933-e1b6-4d11-9d2f-ecabed04c32a.png" alt="Modern engineering laboratory with students working on advanced mechanical projects" class="course-image">
-                            <div class="course-content">
-                                <h3 class="course-title">Engineering & Technology</h3>
-                                <p class="course-description">World-leading engineering programs with cutting-edge facilities and industry partnerships.</p>
-                                <div class="course-meta">
-                                    <span><i class="fas fa-clock"></i> 3-4 Years</span>
-                                    <span><i class="fas fa-users"></i> 2,500+ Students</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="course-card">
-                            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/ca18a890-52b6-4235-b413-a4df70d6f59c.png" alt="Medical students in modern anatomy lab studying with advanced equipment and models" class="course-image">
-                            <div class="course-content">
-                                <h3 class="course-title">Medicine & Health Sciences</h3>
-                                <p class="course-description">Comprehensive medical education with state-of-the-art clinical training facilities.</p>
-                                <div class="course-meta">
-                                    <span><i class="fas fa-clock"></i> 5-6 Years</span>
-                                    <span><i class="fas fa-users"></i> 1,800+ Students</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="course-card">
-                            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/df12cb65-d189-4244-a6da-b124a921263f.png" alt="Business students in modern lecture hall with professor presenting to engaged audience" class="course-image">
-                            <div class="course-content">
-                                <h3 class="course-title">Business & Management</h3>
-                                <p class="course-description">Internationally accredited business programs with global industry connections.</p>
-                                <div class="course-meta">
-                                    <span><i class="fas fa-clock"></i> 3 Years</span>
-                                    <span><i class="fas fa-users"></i> 3,200+ Students</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="course-card">
-                            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/2ffbb303-4611-4324-8728-6db21468f2a1.png" alt="Computer science students coding in modern lab with multiple monitors and latest technology" class="course-image">
-                            <div class="course-content">
-                                <h3 class="course-title">Computer Science</h3>
-                                <p class="course-description">Innovative computing programs covering AI, cybersecurity, and software engineering.</p>
-                                <div class="course-meta">
-                                    <span><i class="fas fa-clock"></i> 3-4 Years</span>
-                                    <span><i class="fas fa-users"></i> 2,100+ Students</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="course-card">
-                            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/ba2e722f-12a3-4792-923e-404d16e9c89b.png" alt="Art students working in bright studio space with paintings and sculptures" class="course-image">
-                            <div class="course-content">
-                                <h3 class="course-title">Arts & Humanities</h3>
-                                <p class="course-description">Rich cultural and historical studies with renowned faculty and extensive resources.</p>
-                                <div class="course-meta">
-                                    <span><i class="fas fa-clock"></i> 3 Years</span>
-                                    <span><i class="fas fa-users"></i> 1,900+ Students</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="course-card">
-                            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/60533210-4e3d-4065-85f3-f9615271bbca.png" alt="Science students conducting experiments in advanced chemistry laboratory with modern equipment" class="course-image">
-                            <div class="course-content">
-                                <h3 class="course-title">Natural Sciences</h3>
-                                <p class="course-description">Comprehensive science programs with world-class research opportunities.</p>
-                                <div class="course-meta">
-                                    <span><i class="fas fa-clock"></i> 3-4 Years</span>
-                                    <span><i class="fas fa-users"></i> 2,800+ Students</span>
-                                </div>
-                            </div>
-                        </div>
+                    <div id="verificationResult" class="hidden mt-6"></div>
+                    <div id="loadingSpinner" class="hidden text-center mt-6">
+                        <div class="loading mx-auto"></div>
+                        <p class="mt-2 text-gray-600">Verifying certificate...</p>
                     </div>
                 </div>
             </div>
-        </section>
+            
+            <!-- Verification Councils -->
+            <div class="mt-16">
+                <h3 class="text-2xl font-bold text-center text-white mb-8">Verified by Education Councils</h3>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
+                    <div class="text-center">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/0e52bf82-fa09-4920-83ee-b9cec7d37dbb.png" alt="UK Education Council official verification logo with crown and educational symbols" class="mx-auto mb-2 rounded-lg bg-white p-2">
+                        <p class="text-white text-sm">UK Education Council</p>
+                    </div>
+                    <div class="text-center">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/f2eb430e-547a-4db9-9c43-fd95362f1e08.png" alt="QAA Quality Assurance Agency official seal with certification marks" class="mx-auto mb-2 rounded-lg bg-white p-2">
+                        <p class="text-white text-sm">QAA Certified</p>
+                    </div>
+                    <div class="text-center">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/10f92d9f-e317-4e1d-afe8-2e2dc8bc6f0c.png" alt="UCAS official logo with graduation cap and university verification symbols" class="mx-auto mb-2 rounded-lg bg-white p-2">
+                        <p class="text-white text-sm">UCAS Recognized</p>
+                    </div>
+                    <div class="text-center">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/86c3d0ae-a430-4a73-aa06-6a5885b1de26.png" alt="Russell Group university alliance logo with shield design and academic excellence symbols" class="mx-auto mb-2 rounded-lg bg-white p-2">
+                        <p class="text-white text-sm">Russell Group</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-        <!-- About Section -->
-        <section id="about" class="section">
-            <div class="container" style="padding: 4rem 0;">
-                <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 2rem; color: #1a472a;">About University of Sheffield</h2>
+    <!-- Courses Section -->
+    <section id="courses" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center text-gray-800 mb-4 section-title">Our Courses</h2>
+            <p class="text-center text-gray-600 mb-12 text-lg">Explore our world-class academic programs</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="course-card" onclick="showCourseDetails('Engineering')">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/17bb38a6-b2ea-4490-9218-7d0f8626e357.png" alt="Modern engineering laboratory with advanced equipment, computer screens, and students working on technical projects" class="w-full h-48 object-cover rounded-lg mb-4">
+                    <h3 class="text-xl font-bold mb-2 text-gray-800">Engineering & Technology</h3>
+                    <p class="text-gray-600 mb-4">World-leading research and teaching in mechanical, electrical, and civil engineering.</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-blue-600 font-semibold">50+ Programs</span>
+                        <button class="btn-primary py-2 px-4 text-sm">Learn More</button>
+                    </div>
+                </div>
                 
-                <div class="info-cards">
-                    <div class="info-card">
-                        <div class="card-icon"><i class="fas fa-history"></i></div>
-                        <h3 class="card-title">Our Heritage</h3>
-                        <p>Founded in 1905, we are one of the UK's leading research universities with over 118 years of academic excellence and innovation.</p>
-                    </div>
-                    <div class="info-card">
-                        <div class="card-icon"><i class="fas fa-trophy"></i></div>
-                        <h3 class="card-title">Rankings & Recognition</h3>
-                        <p>Consistently ranked among the top 100 universities worldwide with 6 Nobel Prize winners and numerous international accolades.</p>
-                    </div>
-                    <div class="info-card">
-                        <div class="card-icon"><i class="fas fa-globe-americas"></i></div>
-                        <h3 class="card-title">Global Community</h3>
-                        <p>Over 29,000 students from 140+ countries, creating a diverse and vibrant international learning environment.</p>
+                <div class="course-card" onclick="showCourseDetails('Medicine')">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/f86ce089-1008-491c-b1c9-54f1510f5e99.png" alt="Medical school anatomy classroom with human skeleton models, medical charts, and students in white coats studying" class="w-full h-48 object-cover rounded-lg mb-4">
+                    <h3 class="text-xl font-bold mb-2 text-gray-800">Medicine & Health</h3>
+                    <p class="text-gray-600 mb-4">Comprehensive medical programs with hands-on clinical experience.</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-blue-600 font-semibold">25+ Programs</span>
+                        <button class="btn-primary py-2 px-4 text-sm">Learn More</button>
                     </div>
                 </div>
-
-                <div style="background: white; padding: 3rem; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); margin-top: 3rem;">
-                    <h3 style="color: #1a472a; margin-bottom: 2rem; font-size: 2rem;">Accreditations & Partnerships</h3>
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; text-align: center;">
-                        <div>
-                            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/98822fc8-df04-4f9d-81a3-a0268fc560b0.png" alt="Quality Assurance Agency for Higher Education official accreditation seal" style="width: 100%; max-width: 150px; border-radius: 10px;">
-                            <p style="margin-top: 1rem; font-weight: bold;">QAA Accredited</p>
-                        </div>
-                        <div>
-                            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/0a079221-f161-4872-b6af-7a5613acd1da.png" alt="Russell Group university consortium membership logo" style="width: 100%; max-width: 150px; border-radius: 10px;">
-                            <p style="margin-top: 1rem; font-weight: bold;">Russell Group Member</p>
-                        </div>
-                        <div>
-                            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/08f57468-eddc-4f07-843d-98587b4224f8.png" alt="Higher Education Statistics Agency official recognition badge" style="width: 100%; max-width: 150px; border-radius: 10px;">
-                            <p style="margin-top: 1rem; font-weight: bold;">HESA Recognized</p>
-                        </div>
-                        <div>
-                            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/72f7f30e-a6f8-44a9-bda5-3ce21fe26a8b.png" alt="ENIC NARIC international credential recognition service logo" style="width: 100%; max-width: 150px; border-radius: 10px;">
-                            <p style="margin-top: 1rem; font-weight: bold;">ENIC-NARIC Listed</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Gallery Section -->
-        <section id="gallery" class="section">
-            <div class="gallery">
-                <div class="container">
-                    <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 1rem; color: #1a472a;">Campus Gallery</h2>
-                    <p style="text-align: center; font-size: 1.1rem; color: #666;">Explore our beautiful campus and world-class facilities</p>
-                    
-                    <div class="gallery-grid">
-                        <div class="gallery-item">
-                            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/a7bddb2d-bbeb-4800-a0e3-0e8f693c7b62.png" alt="Historic main university building with Victorian architecture and beautiful gardens in foreground" class="gallery-image">
-                            <div class="gallery-overlay">
-                                <h3>Historic Main Building</h3>
-                                <p>Our iconic Victorian architecture</p>
-                            </div>
-                        </div>
-                        <div class="gallery-item">
-                            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/8d064565-7029-4322-ae3d-aeefb3c08cb8.png" alt="Modern university library interior with students studying in bright open spaces with contemporary furniture" class="gallery-image">
-                            <div class="gallery-overlay">
-                                <h3>Information Commons</h3>
-                                <p>State-of-the-art learning spaces</p>
-                            </div>
-                        </div>
-                        <div class="gallery-item">
-                            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/14fe9ebb-1cee-4a9b-a0d4-09634a0a6fa0.png" alt="Modern sports complex with swimming pool and fitness facilities" class="gallery-image">
-                            <div class="gallery-overlay">
-                                <h3>Sports Park</h3>
-                                <p>World-class sporting facilities</p>
-                            </div>
-                        </div>
-                        <div class="gallery-item">
-                            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/62370e22-83d4-4db7-b0ab-b15b6ffdc499.png" alt="Vibrant student union building with students socializing in modern common areas" class="gallery-image">
-                            <div class="gallery-overlay">
-                                <h3>Students' Union</h3>
-                                <p>Heart of student life</p>
-                            </div>
-                        </div>
-                        <div class="gallery-item">
-                            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/b1fafecd-05ab-471b-a810-6c15e0e6f4e5.png" alt="Cutting-edge research laboratory with scientists working on advanced equipment" class="gallery-image">
-                            <div class="gallery-overlay">
-                                <h3>Research Facilities</h3>
-                                <p>Leading-edge laboratories</p>
-                            </div>
-                        </div>
-                        <div class="gallery-item">
-                            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/b865133c-248a-459a-acea-2e9ca8f6bf94.png" alt="Beautiful campus green space with students relaxing under trees on sunny day" class="gallery-image">
-                            <div class="gallery-overlay">
-                                <h3>Campus Grounds</h3>
-                                <p>Beautiful green spaces</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Contact Section -->
-        <section id="contact" class="section">
-            <div class="container" style="padding: 4rem 0;">
-                <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 2rem; color: #1a472a;">Contact Us</h2>
                 
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 3rem; margin-top: 3rem;">
-                    <div style="background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.1);">
-                        <h3 style="color: #1a472a; margin-bottom: 1rem;"><i class="fas fa-map-marker-alt"></i> Address</h3>
-                        <p>University of Sheffield<br>
-                        Western Bank<br>
-                        Sheffield S10 2TN<br>
-                        United Kingdom</p>
+                <div class="course-card" onclick="showCourseDetails('Business')">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/a3a56ab1-06be-48ae-a587-a11d5370a6e7.png" alt="Modern business school classroom with students in professional attire, presentation screens, and collaborative learning environment" class="w-full h-48 object-cover rounded-lg mb-4">
+                    <h3 class="text-xl font-bold mb-2 text-gray-800">Business & Management</h3>
+                    <p class="text-gray-600 mb-4">Innovative business programs preparing leaders for global markets.</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-blue-600 font-semibold">30+ Programs</span>
+                        <button class="btn-primary py-2 px-4 text-sm">Learn More</button>
                     </div>
-                    
-                    <div style="background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.1);">
-                        <h3 style="color: #1a472a; margin-bottom: 1rem;"><i class="fas fa-phone"></i> Contact</h3>
-                        <p><strong>Main Office:</strong> +44 (0) 114 222 2000<br>
-                        <strong>Verification:</strong> +44 (0) 114 222 2001<br>
-                        <strong>Email:</strong> verification@sheffield.ac.uk</p>
+                </div>
+                
+                <div class="course-card" onclick="showCourseDetails('Arts')">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/02c2875f-cc48-4e81-9f65-9d17d71637fd.png" alt="Art studio with students painting at easels, colorful artworks on walls, and natural lighting from large windows" class="w-full h-48 object-cover rounded-lg mb-4">
+                    <h3 class="text-xl font-bold mb-2 text-gray-800">Arts & Humanities</h3>
+                    <p class="text-gray-600 mb-4">Creative and cultural studies fostering critical thinking and expression.</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-blue-600 font-semibold">40+ Programs</span>
+                        <button class="btn-primary py-2 px-4 text-sm">Learn More</button>
                     </div>
-                    
-                    <div style="background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.1);">
-                        <h3 style="color: #1a472a; margin-bottom: 1rem;"><i class="fas fa-clock"></i> Hours</h3>
-                        <p><strong>Verification Portal:</strong> 24/7<br>
-                        <strong>Office Hours:</strong> Mon-Fri 9:00-17:00<br>
-                        <strong>Support:</strong> Mon-Fri 8:00-20:00</p>
+                </div>
+                
+                <div class="course-card" onclick="showCourseDetails('Science')">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/4989ac03-2fa0-49df-9414-e235d831f3d6.png" alt="Chemistry laboratory with students conducting experiments, test tubes with colorful solutions, and modern scientific equipment" class="w-full h-48 object-cover rounded-lg mb-4">
+                    <h3 class="text-xl font-bold mb-2 text-gray-800">Natural Sciences</h3>
+                    <p class="text-gray-600 mb-4">Cutting-edge research in physics, chemistry, biology, and mathematics.</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-blue-600 font-semibold">35+ Programs</span>
+                        <button class="btn-primary py-2 px-4 text-sm">Learn More</button>
+                    </div>
+                </div>
+                
+                <div class="course-card" onclick="showCourseDetails('Social')">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/851d4e1e-c621-443f-88cb-bddeba5af086.png" alt="Social sciences seminar room with diverse students engaged in group discussion, professor facilitating, and books on shelves" class="w-full h-48 object-cover rounded-lg mb-4">
+                    <h3 class="text-xl font-bold mb-2 text-gray-800">Social Sciences</h3>
+                    <p class="text-gray-600 mb-4">Understanding society through psychology, sociology, and political science.</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-blue-600 font-semibold">28+ Programs</span>
+                        <button class="btn-primary py-2 px-4 text-sm">Learn More</button>
                     </div>
                 </div>
             </div>
-        </section>
-    </main>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col lg:flex-row items-center">
+                <div class="lg:w-1/2 mb-10 lg:mb-0">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/c271e078-8faa-4446-ab0e-5fc21d7b7a4a.png" alt="Historic University of Sheffield campus quad with Victorian architecture, students walking between buildings, and autumn trees" class="rounded-lg shadow-2xl">
+                </div>
+                <div class="lg:w-1/2 lg:pl-12">
+                    <h2 class="text-4xl font-bold text-gray-800 mb-6 section-title">About University of Sheffield</h2>
+                    <p class="text-gray-600 mb-6 text-lg">The University of Sheffield is a world-class university with a reputation for excellence in teaching and research. We are one of the UK's leading universities, consistently ranked among the top institutions globally.</p>
+                    
+                    <div class="space-y-4">
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-green-600 mr-3"></i>
+                            <span>Russell Group Member University</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-green-600 mr-3"></i>
+                            <span>6 Nobel Prize Winners</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-green-600 mr-3"></i>
+                            <span>Top 100 World University</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-green-600 mr-3"></i>
+                            <span>29,000+ Students from 140+ Countries</span>
+                        </div>
+                    </div>
+                    
+                    <button class="btn-primary mt-8" onclick="showMoreInfo()">
+                        <i class="fas fa-info-circle mr-2"></i>Learn More
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 gradient-bg text-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-4 section-title">Contact Us</h2>
+            <p class="text-center opacity-90 mb-12 text-lg">Get in touch with our verification department</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                <div class="glass-effect p-8 text-center">
+                    <i class="fas fa-map-marker-alt text-4xl mb-4 text-yellow-300"></i>
+                    <h3 class="text-xl font-bold mb-2">Address</h3>
+                    <p>Western Bank, Sheffield<br>S10 2TN, United Kingdom</p>
+                </div>
+                
+                <div class="glass-effect p-8 text-center">
+                    <i class="fas fa-phone text-4xl mb-4 text-yellow-300"></i>
+                    <h3 class="text-xl font-bold mb-2">Phone</h3>
+                    <p>+44 114 222 2000<br>Verification: +44 114 222 2050</p>
+                </div>
+                
+                <div class="glass-effect p-8 text-center">
+                    <i class="fas fa-envelope text-4xl mb-4 text-yellow-300"></i>
+                    <h3 class="text-xl font-bold mb-2">Email</h3>
+                    <p>verification@sheffield.ac.uk<br>info@sheffield.ac.uk</p>
+                </div>
+            </div>
+            
+            <div class="max-w-2xl mx-auto mt-12">
+                <div class="glass-effect p-8">
+                    <h3 class="text-2xl font-bold text-center mb-6">Send us a Message</h3>
+                    <form onsubmit="sendMessage(event)">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                            <input type="text" placeholder="Your Name" class="px-4 py-3 rounded-lg bg-white text-gray-800 border-0 focus:outline-none focus:ring-2 focus:ring-yellow-300" required>
+                            <input type="email" placeholder="Your Email" class="px-4 py-3 rounded-lg bg-white text-gray-800 border-0 focus:outline-none focus:ring-2 focus:ring-yellow-300" required>
+                        </div>
+                        <input type="text" placeholder="Subject" class="w-full px-4 py-3 rounded-lg bg-white text-gray-800 border-0 focus:outline-none focus:ring-2 focus:ring-yellow-300 mb-4" required>
+                        <textarea placeholder="Your Message" rows="5" class="w-full px-4 py-3 rounded-lg bg-white text-gray-800 border-0 focus:outline-none focus:ring-2 focus:ring-yellow-300 mb-4" required></textarea>
+                        <button type="submit" class="btn-primary w-full py-3">
+                            <i class="fas fa-paper-plane mr-2"></i>Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>University of Sheffield</h3>
-                    <p>One of the UK's leading research universities, committed to excellence in education and innovation.</p>
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center space-x-3 mb-4">
+                        <img src="https://placehold.co/50x50" alt="University of Sheffield footer logo with institutional crest and verification badge" class="rounded-full">
+                        <div>
+                            <h3 class="text-xl font-bold">University of Sheffield</h3>
+                            <p class="text-sm opacity-70">Excellence in Education</p>
+                        </div>
+                    </div>
+                    <p class="opacity-70">A world-renowned research university committed to excellence and innovation in higher education.</p>
                 </div>
-                <div class="footer-section">
-                    <h3>Quick Links</h3>
-                    <ul class="footer-links">
-                        <li><a href="#" onclick="showSection('verification')">Degree Verification</a></li>
-                        <li><a href="#" onclick="showSection('courses')">Academic Programs</a></li>
-                        <li><a href="#" onclick="showSection('about')">About Us</a></li>
-                        <li><a href="#" onclick="showSection('contact')">Contact</a></li>
+                
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Quick Links</h4>
+                    <ul class="space-y-2 opacity-70">
+                        <li><a href="#home" class="hover:text-yellow-300 transition-colors">Home</a></li>
+                        <li><a href="#verification" class="hover:text-yellow-300 transition-colors">Verification</a></li>
+                        <li><a href="#courses" class="hover:text-yellow-300 transition-colors">Courses</a></li>
+                        <li><a href="#about" class="hover:text-yellow-300 transition-colors">About</a></li>
                     </ul>
                 </div>
-                <div class="footer-section">
-                    <h3>Accreditations</h3>
-                    <ul class="footer-links">
-                        <li>QAA (Quality Assurance Agency)</li>
-                        <li>Russell Group Member</li>
-                        <li>HESA Recognized</li>
-                        <li>ENIC-NARIC Listed</li>
+                
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Services</h4>
+                    <ul class="space-y-2 opacity-70">
+                        <li><a href="#" class="hover:text-yellow-300 transition-colors">Degree Verification</a></li>
+                        <li><a href="#" class="hover:text-yellow-300 transition-colors">Student Portal</a></li>
+                        <li><a href="#" class="hover:text-yellow-300 transition-colors">Alumni Services</a></li>
+                        <li><a href="#" class="hover:text-yellow-300 transition-colors">Research</a></li>
                     </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Follow Us</h4>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-2xl hover:text-yellow-300 transition-colors"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="text-2xl hover:text-yellow-300 transition-colors"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-2xl hover:text-yellow-300 transition-colors"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="text-2xl hover:text-yellow-300 transition-colors"><i class="fab fa-instagram"></i></a>
+                    </div>
                 </div>
             </div>
-            <div style="border-top: 1px solid #444; padding-top: 2rem; margin-top: 2rem;">
-                <p>© 2024 University of Sheffield. All rights reserved. | Official Degree Verification Portal</p>
+            
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center opacity-70">
+                <p>© 2024 University of Sheffield. All rights reserved. | Privacy Policy | Terms of Service</p>
             </div>
         </div>
     </footer>
 
+    <!-- Modals -->
+    <div id="courseModal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-lg max-w-2xl w-full max-h-90vh overflow-y-auto">
+            <div class="p-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 id="modalTitle" class="text-2xl font-bold"></h3>
+                    <button onclick="closeModal()" class="text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-times text-xl"></i>
+                    </button>
+                </div>
+                <div id="modalContent"></div>
+            </div>
+        </div>
+    </div>
+
     <script>
-        // Student Database (Hidden from frontend display)
+        // Student Database (Hidden in code)
         const studentDatabase = {
-            'UOSH2023001': {
-                name: 'James Mitchell Thompson',
+            'SHF2023001': {
+                name: 'John Smith',
                 degree: 'Bachelor of Engineering (Mechanical)',
                 graduationDate: '2023-07-15',
                 classification: 'First Class Honours',
-                studentId: 'ST2019001',
-                dateOfBirth: '1998-03-12',
-                nationality: 'British',
-                duration: '4 years (2019-2023)',
-                gpa: '3.89/4.00',
-                verificationDate: new Date().toISOString().split('T')[0]
+                studentId: 'SHEF190123',
+                issueDate: '2023-08-01'
             },
-            'UOSH2023002': {
-                name: 'Sarah Elizabeth Chen',
-                degree: 'Master of Science in Computer Science',
+            'SHF2023002': {
+                name: 'Emily Johnson',
+                degree: 'Master of Science (Computer Science)',
                 graduationDate: '2023-09-20',
                 classification: 'Distinction',
-                studentId: 'ST2021007',
-                dateOfBirth: '1996-11-28',
-                nationality: 'Canadian',
-                duration: '2 years (2021-2023)',
-                gpa: '3.95/4.00',
-                verificationDate: new Date().toISOString().split('T')[0]
+                studentId: 'SHEF190456',
+                issueDate: '2023-10-05'
+            },
+            'SHF2022003': {
+                name: 'Michael Brown',
+                degree: 'Bachelor of Medicine, Bachelor of Surgery',
+                graduationDate: '2022-12-10',
+                classification: 'Pass',
+                studentId: 'SHEF180789',
+                issueDate: '2023-01-15'
+            },
+            'SHF2023004': {
+                name: 'Sarah Davis',
+                degree: 'Master of Business Administration',
+                graduationDate: '2023-11-05',
+                classification: 'Merit',
+                studentId: 'SHEF190234',
+                issueDate: '2023-11-20'
+            },
+            'SHF2022005': {
+                name: 'David Wilson',
+                degree: 'Bachelor of Arts (English Literature)',
+                graduationDate: '2022-06-18',
+                classification: 'Upper Second Class Honours',
+                studentId: 'SHEF180567',
+                issueDate: '2022-07-03'
+            },
+            'SHF2023006': {
+                name: 'Lisa Anderson',
+                degree: 'Master of Science (Data Science)',
+                graduationDate: '2023-08-25',
+                classification: 'Distinction',
+                studentId: 'SHEF190345',
+                issueDate: '2023-09-10'
+            },
+            'SHF2022007': {
+                name: 'James Miller',
+                degree: 'Bachelor of Science (Physics)',
+                graduationDate: '2022-05-30',
+                classification: 'First Class Honours',
+                studentId: 'SHEF180123',
+                issueDate: '2022-06-15'
             },
             'UOSH2023003': {
                 name: 'Zjala Kasem Hussein',
                 degree: 'Bachelor of Dental Science (BChD)',
-                graduationDate: '2022-06-30',
-                classification: 'Honours',
-                studentId: 'ST2017003',
-                dateOfBirth: '1995-08-17',
-                nationality: 'Pakistani',
-                duration: '5 years (2017-2022)',
-                gpa: '3.76/4.00',
-                verificationDate: new Date().toISOString().split('T')[0]
-            },
-            'UOSH2022001': {
-                name: 'Emma Louise Davidson',
-                degree: 'Bachelor of Arts in English Literature',
-                graduationDate: '2022-07-18',
-                classification: 'Upper Second Class Honours',
-                studentId: 'ST2019045',
-                dateOfBirth: '1999-05-23',
-                nationality: 'British',
-                duration: '3 years (2019-2022)',
-                gpa: '3.68/4.00',
-                verificationDate: new Date().toISOString().split('T')[0]
-            },
-            'UOSH2023004': {
-                name: 'Roberto Silva Martinez',
-                degree: 'Master of Business Administration (MBA)',
-                graduationDate: '2023-08-25',
+                graduationDate: '29 of June, 2022',
                 classification: 'Merit',
-                studentId: 'ST2021015',
-                dateOfBirth: '1994-12-03',
-                nationality: 'Spanish',
-                duration: '2 years (2021-2023)',
-                gpa: '3.72/4.00',
-                verificationDate: new Date().toISOString().split('T')[0]
+                studentId: 'SHEF190678',
+                issueDate: '7 August 2022'
             },
-            'UOSH2023005': {
-                name: 'Priya Sharma Patel',
-                degree: 'Bachelor of Science in Mathematics',
-                graduationDate: '2023-07-22',
-                classification: 'First Class Honours',
-                studentId: 'ST2020012',
-                dateOfBirth: '1997-09-14',
-                nationality: 'Indian',
-                duration: '3 years (2020-2023)',
-                gpa: '3.91/4.00',
-                verificationDate: new Date().toISOString().split('T')[0]
-            },
-            'UOSH2022002': {
-                name: 'Alexander James Wilson',
-                degree: 'Bachelor of Science in Physics',
-                graduationDate: '2022-06-15',
+            'SHF2022009': {
+                name: 'Robert Garcia',
+                degree: 'Bachelor of Science (Chemistry)',
+                graduationDate: '2022-07-22',
                 classification: 'Upper Second Class Honours',
-                studentId: 'ST2019028',
-                dateOfBirth: '1998-01-30',
-                nationality: 'Australian',
-                duration: '3 years (2019-2022)',
-                gpa: '3.65/4.00',
-                verificationDate: new Date().toISOString().split('T')[0]
+                studentId: 'SHEF180901',
+                issueDate: '2022-08-07'
             },
-            'UOSH2023006': {
-                name: 'Lisa Marie Johnson',
-                degree: 'Master of Arts in International Relations',
-                graduationDate: '2023-09-12',
+            'SHF2023010': {
+                name: 'Michelle Lee',
+                degree: 'Master of Arts (Psychology)',
+                graduationDate: '2023-12-15',
                 classification: 'Distinction',
-                studentId: 'ST2021032',
-                dateOfBirth: '1995-04-08',
-                nationality: 'American',
-                duration: '2 years (2021-2023)',
-                gpa: '3.87/4.00',
-                verificationDate: new Date().toISOString().split('T')[0]
-            },
-            'UOSH2023007': {
-                name: 'David Benjamin Lee',
-                degree: 'Bachelor of Laws (LLB)',
-                graduationDate: '2023-07-08',
-                classification: 'First Class Honours',
-                studentId: 'ST2020019',
-                dateOfBirth: '1999-02-16',
-                nationality: 'South Korean',
-                duration: '3 years (2020-2023)',
-                gpa: '3.93/4.00',
-                verificationDate: new Date().toISOString().split('T')[0]
-            },
-            'UOSH2022003': {
-                name: 'Sophie Catherine Brown',
-                degree: 'Bachelor of Science in Psychology',
-                graduationDate: '2022-07-29',
-                classification: 'Upper Second Class Honours',
-                studentId: 'ST2019041',
-                dateOfBirth: '1998-10-11',
-                nationality: 'Irish',
-                duration: '3 years (2019-2022)',
-                gpa: '3.71/4.00',
-                verificationDate: new Date().toISOString().split('T')[0]
+                studentId: 'SHEF190890',
+                issueDate: '2024-01-05'
             }
         };
 
         // Navigation Functions
-        function showSection(sectionName) {
-            // Hide all sections
-            const sections = document.querySelectorAll('.section');
-            sections.forEach(section => {
-                section.classList.remove('active');
-            });
-
-            // Remove active class from all nav items
-            const navItems = document.querySelectorAll('.nav-item');
-            navItems.forEach(item => {
-                item.classList.remove('active');
-            });
-
-            // Show selected section
-            document.getElementById(sectionName).classList.add('active');
-
-            // Add active class to clicked nav item
-            event.target.classList.add('active');
-
-            // Smooth scroll to top
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
         }
 
-        // Degree Verification Function
+        function scrollToSection(sectionId) {
+            document.getElementById(sectionId).scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+
+        // Verification Function
         function verifyDegree() {
-            const certNumber = document.getElementById('certNumber').value.trim().toUpperCase();
+            const input = document.getElementById('certificateInput');
             const resultDiv = document.getElementById('verificationResult');
             const loadingDiv = document.getElementById('loadingSpinner');
+            const certificateNumber = input.value.trim().toUpperCase();
 
-            if (!certNumber) {
-                showError('Please enter a certificate number.');
+            if (!certificateNumber) {
+                alert('Please enter a certificate number');
                 return;
             }
 
-            // Show loading animation
-            resultDiv.style.display = 'none';
-            loadingDiv.style.display = 'block';
+            // Show loading
+            loadingDiv.classList.remove('hidden');
+            resultDiv.classList.add('hidden');
 
-            // Simulate verification delay
+            // Simulate API call delay
             setTimeout(() => {
-                loadingDiv.style.display = 'none';
-                
-                if (studentDatabase[certNumber]) {
-                    showSuccessResult(studentDatabase[certNumber]);
+                loadingDiv.classList.add('hidden');
+
+                if (studentDatabase[certificateNumber]) {
+                    const student = studentDatabase[certificateNumber];
+                    resultDiv.innerHTML = `
+                        <div class="verification-result">
+                            <div class="flex items-center mb-4">
+                                <i class="fas fa-check-circle text-4xl mr-4"></i>
+                                <div>
+                                    <h3 class="text-2xl font-bold">Certificate Verified</h3>
+                                    <p class="opacity-90">This certificate is authentic and valid</p>
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+                                <div>
+                                    <h4 class="font-bold">Graduate Name:</h4>
+                                    <p>${student.name}</p>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold">Degree:</h4>
+                                    <p>${student.degree}</p>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold">Classification:</h4>
+                                    <p>${student.classification}</p>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold">Graduation Date:</h4>
+                                    <p>${student.graduationDate}</p>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold">Student ID:</h4>
+                                    <p>${student.studentId}</p>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold">Certificate Issue Date:</h4>
+                                    <p>${student.issueDate}</p>
+                                </div>
+                            </div>
+                            <div class="mt-6 pt-4 border-t border-white border-opacity-30">
+                                <p class="text-sm opacity-90">
+                                    <i class="fas fa-shield-alt mr-2"></i>
+                                    This verification is provided by the official University of Sheffield verification system.
+                                    Certificate verified on ${new Date().toLocaleDateString()}.
+                                </p>
+                            </div>
+                        </div>
+                    `;
                 } else {
-                    showError('Certificate not found. Please verify the certificate number and try again.');
+                    resultDiv.innerHTML = `
+                        <div class="bg-red-600 text-white p-6 rounded-lg">
+                            <div class="flex items-center mb-4">
+                                <i class="fas fa-times-circle text-4xl mr-4"></i>
+                                <div>
+                                    <h3 class="text-2xl font-bold">Certificate Not Found</h3>
+                                    <p class="opacity-90">The certificate number you entered could not be verified</p>
+                                </div>
+                            </div>
+                            <p class="mt-4">Please check the certificate number and try again. If you believe this is an error, please contact our verification department at verification@sheffield.ac.uk</p>
+                        </div>
+                    `;
                 }
+                
+                resultDiv.classList.remove('hidden');
             }, 2000);
         }
 
-        function showSuccessResult(student) {
-            const resultDiv = document.getElementById('verificationResult');
-            resultDiv.innerHTML = `
-                <div class="result-title" style="color: #28a745;">
-                    <i class="fas fa-check-circle"></i>
-                    Certificate Verified Successfully
-                </div>
-                <div class="student-details">
-                    <div class="detail-item">
-                        <div class="detail-label">Full Name:</div>
-                        <div>${student.name}</div>
+        // Course Details Function
+        function showCourseDetails(courseType) {
+            const modal = document.getElementById('courseModal');
+            const title = document.getElementById('modalTitle');
+            const content = document.getElementById('modalContent');
+
+            const courseDetails = {
+                'Engineering': {
+                    title: 'Engineering & Technology',
+                    description: 'Our engineering programs are world-renowned for excellence in research and teaching.',
+                    programs: ['Mechanical Engineering', 'Electrical Engineering', 'Civil Engineering', 'Aerospace Engineering', 'Chemical Engineering'],
+                    duration: '3-4 years (Bachelor), 1-2 years (Master)',
+                    requirements: 'A-levels: AAB, International Baccalaureate: 35 points'
+                },
+                'Medicine': {
+                    title: 'Medicine & Health',
+                    description: 'Our medical school provides comprehensive training with world-class facilities.',
+                    programs: ['Medicine MBBS', 'Dentistry', 'Nursing', 'Biomedical Sciences', 'Public Health'],
+                    duration: '5-6 years (Medicine), 3-4 years (Other programs)',
+                    requirements: 'A-levels: AAA, UKCAT/BMAT required'
+                },
+                'Business': {
+                    title: 'Business & Management',
+                    description: 'Innovative business programs preparing future leaders for global markets.',
+                    programs: ['Business Administration', 'Management', 'Finance', 'Marketing', 'International Business'],
+                    duration: '3 years (Bachelor), 1 year (Master)',
+                    requirements: 'A-levels: ABB, International Baccalaureate: 33 points'
+                },
+                'Arts': {
+                    title: 'Arts & Humanities',
+                    description: 'Creative and cultural studies fostering critical thinking and expression.',
+                    programs: ['English Literature', 'History', 'Philosophy', 'Modern Languages', 'Art History'],
+                    duration: '3 years (Bachelor), 1 year (Master)',
+                    requirements: 'A-levels: ABB, Portfolio required for some programs'
+                },
+                'Science': {
+                    title: 'Natural Sciences',
+                    description: 'Cutting-edge research in physical and biological sciences.',
+                    programs: ['Physics', 'Chemistry', 'Biology', 'Mathematics', 'Environmental Science'],
+                    duration: '3-4 years (Bachelor), 1-2 years (Master)',
+                    requirements: 'A-levels: AAB, Strong mathematics background required'
+                },
+                'Social': {
+                    title: 'Social Sciences',
+                    description: 'Understanding society through various social science disciplines.',
+                    programs: ['Psychology', 'Sociology', 'Political Science', 'Economics', 'Anthropology'],
+                    duration: '3 years (Bachelor), 1 year (Master)',
+                    requirements: 'A-levels: ABB, Essay required for some programs'
+                }
+            };
+
+            const course = courseDetails[courseType];
+            title.textContent = course.title;
+            
+            content.innerHTML = `
+                <div class="space-y-6">
+                    <p class="text-gray-600 text-lg">${course.description}</p>
+                    
+                    <div>
+                        <h4 class="text-lg font-bold mb-3">Available Programs:</h4>
+                        <ul class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                            ${course.programs.map(program => `<li class="flex items-center"><i class="fas fa-graduation-cap text-blue-600 mr-2"></i>${program}</li>`).join('')}
+                        </ul>
                     </div>
-                    <div class="detail-item">
-                        <div class="detail-label">Degree:</div>
-                        <div>${student.degree}</div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <h4 class="text-lg font-bold mb-2">Duration:</h4>
+                            <p class="text-gray-600">${course.duration}</p>
+                        </div>
+                        <div>
+                            <h4 class="text-lg font-bold mb-2">Entry Requirements:</h4>
+                            <p class="text-gray-600">${course.requirements}</p>
+                        </div>
                     </div>
-                    <div class="detail-item">
-                        <div class="detail-label">Classification:</div>
-                        <div>${student.classification}</div>
+                    
+                    <div class="pt-4 border-t">
+                        <button class="btn-primary mr-4">Apply Now</button>
+                        <button class="bg-gray-500 text-white px-6 py-2 rounded-lg hover:bg-gray-600 transition-colors">Download Brochure</button>
                     </div>
-                    <div class="detail-item">
-                        <div class="detail-label">Graduation Date:</div>
-                        <div>${formatDate(student.graduationDate)}</div>
-                    </div>
-                    <div class="detail-item">
-                        <div class="detail-label">Student ID:</div>
-                        <div>${student.studentId}</div>
-                    </div>
-                    <div class="detail-item">
-                        <div class="detail-label">Duration:</div>
-                        <div>${student.duration}</div>
-                    </div>
-                    <div class="detail-item">
-                        <div class="detail-label">GPA:</div>
-                        <div>${student.gpa}</div>
-                    </div>
-                    <div class="detail-item">
-                        <div class="detail-label">Nationality:</div>
-                        <div>${student.nationality}</div>
-                    </div>
-                    <div class="detail-item">
-                        <div class="detail-label">Verification Date:</div>
-                        <div>${formatDate(student.verificationDate)}</div>
-                    </div>
-                </div>
-                <div style="margin-top: 2rem; padding: 1rem; background: rgba(40, 167, 69, 0.1); border-radius: 8px; border-left: 4px solid #28a745;">
-                    <strong><i class="fas fa-shield-check"></i> Authenticity Confirmed</strong><br>
-                    This certificate has been verified against official University of Sheffield records. 
-                    This verification is recognized by QAA, HESA, and international education bodies.
                 </div>
             `;
-            resultDiv.className = 'verification-result result-success';
-            resultDiv.style.display = 'block';
+            
+            modal.classList.remove('hidden');
         }
 
-        function showError(message) {
-            const resultDiv = document.getElementById('verificationResult');
-            resultDiv.innerHTML = `
-                <div class="result-title" style="color: #dc3545;">
-                    <i class="fas fa-times-circle"></i>
-                    Verification Failed
-                </div>
-                <p style="margin: 1rem 0;">${message}</p>
-                <div style="margin-top: 2rem; padding: 1rem; background: rgba(220, 53, 69, 0.1); border-radius: 8px; border-left: 4px solid #dc3545;">
-                    <strong><i class="fas fa-info-circle"></i> Need Help?</strong><br>
-                    Contact our verification team at +44 (0) 114 222 2001 or email verification@sheffield.ac.uk
-                </div>
-            `;
-            resultDiv.className = 'verification-result result-error';
-            resultDiv.style.display = 'block';
+        function closeModal() {
+            document.getElementById('courseModal').classList.add('hidden');
         }
 
-        function formatDate(dateString) {
-            const options = { year: 'numeric', month: 'long', day: 'numeric' };
-            return new Date(dateString).toLocaleDateString('en-GB', options);
+        // Contact Form Function
+        function sendMessage(event) {
+            event.preventDefault();
+            alert('Thank you for your message! We will get back to you within 24 hours.');
+            event.target.reset();
         }
 
-        // Enter key support for verification
-        document.getElementById('certNumber').addEventListener('keypress', function(e) {
+        // Additional Info Function
+        function showMoreInfo() {
+            alert('For more detailed information about University of Sheffield, please visit our main website or contact our admissions office.');
+        }
+
+        // Smooth scrolling for navigation links
+        document.addEventListener('DOMContentLoaded', function() {
+            const links = document.querySelectorAll('a[href^="#"]');
+            links.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+
+            // Add animation classes on scroll
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate-fade-in');
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.course-card, .stat-card').forEach(el => {
+                observer.observe(el);
+            });
+        });
+
+        // Close modal when clicking outside
+        document.getElementById('courseModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        // Allow Enter key to trigger verification
+        document.getElementById('certificateInput').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
                 verifyDegree();
             }
         });
-
-        // Smooth scrolling animations
-        window.addEventListener('scroll', () => {
-            const cards = document.querySelectorAll('.info-card, .course-card, .gallery-item');
-            cards.forEach(card => {
-                const cardTop = card.getBoundingClientRect().top;
-                const cardVisible = 150;
-                
-                if (cardTop < window.innerHeight - cardVisible) {
-                    card.style.opacity = '1';
-                    card.style.transform = 'translateY(0)';
-                }
-            });
-        });
-
-        // Initialize page
-        document.addEventListener('DOMContentLoaded', function() {
-            // Add initial animation delay to cards
-            const cards = document.querySelectorAll('.info-card, .course-card');
-            cards.forEach((card, index) => {
-                card.style.opacity = '0';
-                card.style.transform = 'translateY(30px)';
-                card.style.transition = 'all 0.6s ease';
-                setTimeout(() => {
-                    card.style.opacity = '1';
-                    card.style.transform = 'translateY(0)';
-                }, index * 200);
-            });
-        });
-
-        // Mobile menu toggle (simplified)
-        function toggleMobileMenu() {
-            const navMenu = document.querySelector('.nav-menu');
-            navMenu.style.display = navMenu.style.display === 'flex' ? 'none' : 'flex';
-        }
     </script>
 </body>
 </html>
-
-
 
